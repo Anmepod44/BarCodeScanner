@@ -1,0 +1,776 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Anmepod44/BarCodeScanner/blob/master/FINAL%20PROJECT\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# SQLite Database Final Project: Design, Implementation, and Optimization\n",
+        "\n",
+        "**Note: To start working on this project, you should choose File: \"Save Copy in Drive\" and then name the file whatever you want. Then, you can type your answers directly into the document.**\n",
+        "\n",
+        "Welcome to your final project for the Database and SQL course! In this comprehensive assignment, you'll have the opportunity to apply everything you've learned about database design, SQL, and database optimization to a topic of your choice. You'll be creating, populating, querying, and optimizing a SQLite database using Google Colab and SQLMagic.\n",
+        "\n",
+        "This project is designed to be both challenging and rewarding, allowing you to explore a subject that interests you while demonstrating your database skills. Whether you're passionate about sports, music, literature, science, or any other field, you can tailor this project to your interests.\n",
+        "\n",
+        "Here are ten sample ideas to spark your imagination:\n",
+        "\n",
+        "1. A music library management system\n",
+        "2. A personal finance tracker\n",
+        "3. A recipe and meal planning database\n",
+        "4. A fitness and workout log\n",
+        "5. A book collection catalog\n",
+        "6. A plant care and gardening tracker\n",
+        "7. A movie and TV show watchlist\n",
+        "8. A travel planning and itinerary system\n",
+        "9. A collectibles inventory (e.g., trading cards, stamps, coins)\n",
+        "10. A personal learning management system\n",
+        "\n",
+        "Remember, these are just suggestions. Feel free to come up with your own unique idea!\n"
+      ],
+      "metadata": {
+        "id": "8tZYbHzvtdF6"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Policy on AI Tools\n",
+        "You are allowed to use AI tools (chatGPT, Gemini, Claude, etc.), as these are increasingly important in many areas of database and computer science.\n",
+        "\n",
+        "If relevent, please indicate which AI tools did you use in this project. How did they work for you?\n",
+        "\n",
+        "[You answer goes here).\n"
+      ],
+      "metadata": {
+        "id": "BAdD0vNKtyEt"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 2: Conceptual Modeling - Business Rules\n",
+        "\n",
+        "Start by defining the business rules for your chosen database topic. These rules should clearly state the purpose of your database and the relationships between different entities. Write at least 5-7 business rules that govern your database's structure and operations.\n",
+        "\n",
+        "Example (for a music library):\n",
+        "1. Each artist can have multiple albums.\n",
+        "2. An album belongs to one primary artist but can feature multiple collaborating artists.\n",
+        "3. Each album contains multiple songs.\n",
+        "4. A song can appear on multiple albums (e.g., original album and compilation).\n",
+        "5. Users can create multiple playlists.\n",
+        "6. A playlist can contain multiple songs, and a song can be in multiple playlists.\n",
+        "7. Each song has one primary genre, but can be associated with multiple subgenres.\n"
+      ],
+      "metadata": {
+        "id": "8beeNq3Jtn8s"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Business Rules\n"
+      ],
+      "metadata": {
+        "id": "ZFT_NZBntokB"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 3: Conceptual Modeling - Entities and Attributes\n",
+        "\n",
+        "Based on your business rules, identify the main entities in your database and list their attributes. You should have at THREE entities and the attributes should span various data types (INTEGER, TEXT, REAL, BLOB, etc.).\n",
+        "\n",
+        "Example (continuing with the music library):\n",
+        "\n",
+        "1. Artist\n",
+        "   - ArtistID (INTEGER)\n",
+        "   - Name (TEXT)\n",
+        "   - Country (TEXT)\n",
+        "   - FormedDate (DATE)\n",
+        "\n",
+        "2. Album\n",
+        "   - AlbumID (INTEGER)\n",
+        "   - Title (TEXT)\n",
+        "   - ReleaseDate (DATE)\n",
+        "   - ArtistID (INTEGER)\n",
+        "   - CoverArt (BLOB)\n",
+        "\n",
+        "3. Song\n",
+        "   - SongID (INTEGER)\n",
+        "   - Title (TEXT)\n",
+        "   - Duration (INTEGER) # in seconds\n",
+        "   - AlbumID (INTEGER)\n",
+        "   - GenreID (INTEGER)\n",
+        "\n",
+        "4. Genre\n",
+        "   - GenreID (INTEGER)\n",
+        "   - Name (TEXT)\n",
+        "\n",
+        "5. Playlist\n",
+        "   - PlaylistID (INTEGER)\n",
+        "   - Name (TEXT)\n",
+        "   - CreationDate (DATE)\n",
+        "\n",
+        "Ensure your entities and attributes adequately represent your chosen topic and align with your business rules.\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "dALhfXImt9uV"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Entities and Attributes\n",
+        "\n",
+        "Write your answer below."
+      ],
+      "metadata": {
+        "id": "oL7LPZXst_W4"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 4: Conceptual Modeling - Entity Relationship Diagram (ERD)\n",
+        "\n",
+        "Create an Entity Relationship Diagram (ERD) using Mermaid syntax. This diagram should visually represent the entities you've identified and show the relationships between them. Include cardinality in your diagram (one-to-one, one-to-many, many-to-many).\n",
+        "\n",
+        "Here's an example of how to start your Mermaid ERD:\n",
+        "\n",
+        "```mermaid\n",
+        "erDiagram\n",
+        "    ARTIST ||--o{ ALBUM : creates\n",
+        "    ALBUM ||--o{ SONG : contains\n",
+        "    SONG }o--|| GENRE : belongs_to\n",
+        "    PLAYLIST }o--o{ SONG : includes\n",
+        "```\n",
+        "\n",
+        "Complete the diagram for all entities in your database. Make sure the relationships accurately reflect your business rules.\n"
+      ],
+      "metadata": {
+        "id": "UxRyyr9HuFYh"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: ERD Diagram"
+      ],
+      "metadata": {
+        "id": "5h_31ZXkxUUC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import base64\n",
+        "from IPython.display import Image, display, HTML\n",
+        "\n",
+        "def mm(graph):\n",
+        "    graphbytes = graph.encode(\"utf8\")\n",
+        "    base64_bytes = base64.b64encode(graphbytes)\n",
+        "    base64_string = base64_bytes.decode(\"ascii\")\n",
+        "    display(Image(url=\"https://mermaid.ink/img/\" + base64_string))\n",
+        "\n",
+        "# Change the code in the \"\"\"\n",
+        "mm(\"\"\"\n",
+        "erDiagram\n",
+        "    ARTIST ||--o{ ALBUM : creates\n",
+        "    ALBUM ||--o{ SONG : contains\n",
+        "    SONG }o--|| GENRE : belongs_to\n",
+        "    PLAYLIST }o--o{ SONG : includes\n",
+        "    \"\"\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 661
+        },
+        "id": "hU_Ew4s-uKRq",
+        "outputId": "68607aad-e34f-4831-b35a-238ad328904a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<img src=\"https://mermaid.ink/img/CmVyRGlhZ3JhbQogICAgQVJUSVNUIHx8LS1veyBBTEJVTSA6IGNyZWF0ZXMKICAgIEFMQlVNIHx8LS1veyBTT05HIDogY29udGFpbnMKICAgIFNPTkcgfW8tLXx8IEdFTlJFIDogYmVsb25nc190bwogICAgUExBWUxJU1QgfW8tLW97IFNPTkcgOiBpbmNsdWRlcwogICAg\"/>"
+            ],
+            "text/plain": [
+              "<IPython.core.display.Image object>"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 5: Logical Modeling - Relational Model\n",
+        "\n",
+        "Transform your conceptual model into a logical model using the relational model. List all the tables in your database, including columns, primary keys, and foreign keys. You may use JSON columns for certain complex attributes if appropriate for your design.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "1. **Artist** (ArtistID PK, Name, Country, FormedDate)  \n",
+        "2. **Album** (AlbumID PK, Title, ReleaseDate, ArtistID FK→Artist(ArtistID), CoverArt)  \n",
+        "3. **Song** (SongID PK, Title, Duration, AlbumID FK→Album(AlbumID), GenreID FK→Genre(GenreID))  \n",
+        "4. **Genre** (GenreID PK, Name)  \n",
+        "5. **Playlist** (PlaylistID PK, Name, CreationDate)  \n",
+        "6. **PlaylistSong** (PlaylistID PK FK→Playlist(PlaylistID), SongID PK FK→Song(SongID))  \n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "ZZop90_WtjTc"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Logical Model\n",
+        "Type your answer here."
+      ],
+      "metadata": {
+        "id": "6y8qdDPuuRGZ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 6: Logical Modeling - Key Selection Rationale\n",
+        "\n",
+        "Explain your choices for primary and foreign keys. Discuss why you selected certain attributes as keys and how these choices support data integrity and efficient querying.\n",
+        "\n",
+        "Consider addressing the following points:\n",
+        "- Why did you choose certain attributes as primary keys?\n",
+        "- Are your primary keys natural or surrogate keys? Why?\n",
+        "- How do your foreign key relationships enforce referential integrity?\n",
+        "- Did you implement any composite keys? If so, why?\n"
+      ],
+      "metadata": {
+        "id": "UQ8aZAqKumKt"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Part 6: My Answer"
+      ],
+      "metadata": {
+        "id": "7A6_YGxqum26"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 7: Physical Model - Create Simple Tables\n",
+        "\n",
+        "Write SQL statements to create a simple version of your tables. At this stage, include only the column names and their data types, without keys or constraints.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "CREATE TABLE Artist (\n",
+        "    ArtistID INTEGER,\n",
+        "    Name TEXT,\n",
+        "    Country TEXT,\n",
+        "    FormedDate DATE\n",
+        ");\n",
+        "\n",
+        "CREATE TABLE Album (\n",
+        "    AlbumID INTEGER,\n",
+        "    Title TEXT,\n",
+        "    ReleaseDate DATE,\n",
+        "    ArtistID INTEGER,\n",
+        "    CoverArt BLOB\n",
+        ");\n",
+        "\n",
+        "-- Continue with the rest of your tables...\n",
+        "```\n",
+        "\n",
+        "Create all the tables in your database using this simple structure.\n"
+      ],
+      "metadata": {
+        "id": "-5LmM_lqtdYZ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Create Tables"
+      ],
+      "metadata": {
+        "id": "QAuSJ5c2uZ9b"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%reload_ext sql\n",
+        "\n",
+        "!pip install jupysql -q\n",
+        "\n",
+        "%sql sqlite:///my_data.db\n",
+        "%config SqlMagic.autopandas=True"
+      ],
+      "metadata": {
+        "id": "8Xh3ia4Zudj2",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "d1615844-7425-4577-84a9-d1099dc1c174"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/95.1 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━\u001b[0m \u001b[32m92.2/95.1 kB\u001b[0m \u001b[31m3.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m95.1/95.1 kB\u001b[0m \u001b[31m2.4 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m192.8/192.8 kB\u001b[0m \u001b[31m7.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m54.8/54.8 kB\u001b[0m \u001b[31m3.7 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25h"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%sql\n",
+        "--create tables here"
+      ],
+      "metadata": {
+        "id": "WfB3VIXDudoe"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 8: Physical Model - Drop Tables\n",
+        "\n",
+        "Write SQL statements to drop all the tables you've created. This will allow you to easily reset your database if needed.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "DROP TABLE IF EXISTS Artist;\n",
+        "DROP TABLE IF EXISTS Album;\n",
+        "DROP TABLE IF EXISTS Song;\n",
+        "-- Continue with the rest of your tables...\n",
+        "```\n",
+        "\n",
+        "Ensure you include DROP statements for all tables in your database.\n"
+      ],
+      "metadata": {
+        "id": "4bfw_-T4utHi"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My ANswer: Drop Table"
+      ],
+      "metadata": {
+        "id": "PJWJrk2wuuFK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%sql\n",
+        "-- Drop Tables"
+      ],
+      "metadata": {
+        "id": "kqVJymqQuv3g"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 9: Physical Model - Create Full Tables\n",
+        "\n",
+        "Now, create the full version of your tables, including primary keys, foreign keys, and any other constraints (e.g., NOT NULL, UNIQUE, CHECK).\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "CREATE TABLE Artist (\n",
+        "    ArtistID INTEGER PRIMARY KEY,\n",
+        "    Name TEXT NOT NULL,\n",
+        "    Country TEXT,\n",
+        "    FormedDate DATE\n",
+        ");\n",
+        "\n",
+        "CREATE TABLE Album (\n",
+        "    AlbumID INTEGER PRIMARY KEY,\n",
+        "    Title TEXT NOT NULL,\n",
+        "    ReleaseDate DATE,\n",
+        "    ArtistID INTEGER,\n",
+        "    CoverArt BLOB,\n",
+        "    FOREIGN KEY (ArtistID) REFERENCES Artist(ArtistID)\n",
+        ");\n",
+        "\n",
+        "-- Continue with the rest of your tables...\n",
+        "```\n",
+        "\n",
+        "Implement all your tables with full constraints.\n"
+      ],
+      "metadata": {
+        "id": "HHROiM33uyg7"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Create Full Tables"
+      ],
+      "metadata": {
+        "id": "yGDV5-6gu1Gw"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%sql\n",
+        "-- Create Full Tables"
+      ],
+      "metadata": {
+        "id": "3Apqz0uTu3Xt"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "-fTgbukmu-pA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 10: Data Population - Insert Sample Data\n",
+        "\n",
+        "Insert sample data into your tables. Use a mix of direct INSERT statements and, where appropriate, generate data using AI tools.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "INSERT INTO Artist (Name, Country, FormedDate) VALUES\n",
+        "('The Beatles', 'United Kingdom', '1960-08-01'),\n",
+        "('Queen', 'United Kingdom', '1970-06-27'),\n",
+        "('Beyoncé', 'United States', '1997-01-01');\n",
+        "\n",
+        "-- Continue with more INSERT statements for all your tables...\n",
+        "```\n",
+        "\n",
+        "Provide at least 5-10 rows of sample data for each table in your database.\n"
+      ],
+      "metadata": {
+        "id": "IY74_T7Nu6yv"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Data Population"
+      ],
+      "metadata": {
+        "id": "LBbzqOrlu69W"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%sql\n",
+        "-- Insert Sample Data"
+      ],
+      "metadata": {
+        "id": "4F4qCehDu-NE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 11: Basic SELECT Queries\n",
+        "\n",
+        "Write and execute at least five SELECT queries that demonstrate your understanding of basic SQL operations. These should include:\n",
+        "\n",
+        "1. A simple SELECT with a WHERE clause\n",
+        "2. A query using ORDER BY\n",
+        "3. A query using GROUP BY with an aggregate function\n",
+        "4. A query joining two tables\n",
+        "5. A query using a subquery\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "-- 1. Simple SELECT with WHERE\n",
+        "SELECT Title, ReleaseDate\n",
+        "FROM Album\n",
+        "WHERE ReleaseDate > '2000-01-01';\n",
+        "\n",
+        "-- 2. Query using ORDER BY\n",
+        "SELECT Name, Country\n",
+        "FROM Artist\n",
+        "ORDER BY Country, Name;\n",
+        "\n",
+        "-- Continue with the rest of the queries...\n",
+        "```\n",
+        "\n",
+        "Explain the purpose and expected output of each query.\n"
+      ],
+      "metadata": {
+        "id": "XIRhULgLvEc1"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Basic SELECT Queries\n",
+        "Create code and text cells below to run and explain your queries."
+      ],
+      "metadata": {
+        "id": "H1ibhDwivHph"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 12: Advanced SELECT Queries\n",
+        "\n",
+        "Write and execute at least THREE more complex SELECT queries that demonstrate advanced SQL concepts. Possible examples include:\n",
+        "\n",
+        "1. A query using a self-join\n",
+        "2. A query using UNION, INTERSECT, or EXCEPT\n",
+        "3. A query using window functions\n",
+        "4. A query using a Common Table Expression (CTE)\n",
+        "5. A query using a subquery\n",
+        "6. A query using a `CASE` statement\n",
+        "7. A query using SQLite functions for math, date, or strings\n",
+        "8. A query for JSON data (if your database has this).\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "-- 1. Self-join (assuming we have a 'Collaboration' table)\n",
+        "SELECT a1.Name AS Artist1, a2.Name AS Artist2\n",
+        "FROM Collaboration c\n",
+        "JOIN Artist a1 ON c.Artist1ID = a1.ArtistID\n",
+        "JOIN Artist a2 ON c.Artist2ID = a2.ArtistID;\n",
+        "\n",
+        "-- Continue with the rest of the advanced queries...\n",
+        "```\n",
+        "Explain the purpose and impact of each modification query."
+      ],
+      "metadata": {
+        "id": "XeKjuqJNvQU8"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Advanced Queries\n",
+        "Create code/text cells below to run and explain your queries."
+      ],
+      "metadata": {
+        "id": "tItBrroBvn5U"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 14: Index Creation and Analysis\n",
+        "\n",
+        "Create at least two indexes on your tables. Then, use the EXPLAIN QUERY PLAN statement to analyze the performance impact of your indexes on relevant queries.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "-- Create an index\n",
+        "CREATE INDEX idx_album_title ON Album(Title);\n",
+        "\n",
+        "-- Analyze a query with EXPLAIN QUERY PLAN\n",
+        "EXPLAIN QUERY PLAN\n",
+        "SELECT * FROM Album WHERE Title = 'Abbey Road';\n",
+        "```\n",
+        "\n",
+        "Discuss the results of your EXPLAIN QUERY PLAN analysis. How do the indexes affect query performance?\n"
+      ],
+      "metadata": {
+        "id": "ph7q8MaXvvry"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Create Indexes\n",
+        "Create code and text cells below."
+      ],
+      "metadata": {
+        "id": "FuSfup96v0Oa"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 15: View Creation\n",
+        "\n",
+        "Create at least two views that could be useful for your database users. Explain the purpose of each view and how it simplifies complex queries.\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "CREATE VIEW ArtistAlbumCount AS\n",
+        "SELECT Artist.Name, COUNT(Album.AlbumID) AS AlbumCount\n",
+        "FROM Artist\n",
+        "LEFT JOIN Album ON Artist.ArtistID = Album.ArtistID\n",
+        "GROUP BY Artist.ArtistID;\n",
+        "```\n",
+        "\n",
+        "Provide a brief explanation of how each view could be used in practice.\n"
+      ],
+      "metadata": {
+        "id": "ghiZ5pSpv86X"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Part 16: Transaction Management\n",
+        "\n",
+        "Write a multi-statement transaction that demonstrates the use of BEGIN, COMMIT, and ROLLBACK. This transaction should perform a series of related operations that need to be executed atomically.\n",
+        "\n",
+        "**Note: This won't actually \"work\" in this environment. However, just write the query as best you can.**\n",
+        "\n",
+        "Example:\n",
+        "\n",
+        "```sql\n",
+        "%%sql\n",
+        "BEGIN TRANSACTION;\n",
+        "\n",
+        "INSERT INTO Album (Title, ArtistID, ReleaseDate) VALUES ('New Album', 1, '2023-08-01');\n",
+        "\n",
+        "UPDATE Artist SET AlbumCount = AlbumCount + 1 WHERE ArtistID = 1;\n",
+        "\n",
+        "-- Simulate a condition that would cause a ROLLBACK\n",
+        "SELECT CASE WHEN (SELECT COUNT(*) FROM Album WHERE ArtistID = 1) > 10\n",
+        "            THEN RAISE(ABORT, 'Too many albums for this artist')\n",
+        "            ELSE 0 END;\n",
+        "\n",
+        "COMMIT;\n",
+        "```\n",
+        "\n",
+        "Explain the importance of transactions in maintaining data consistency and how your example demonstrates this concept.\n"
+      ],
+      "metadata": {
+        "id": "w6s2oz4SwDi8"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### My Answer: Transactions"
+      ],
+      "metadata": {
+        "id": "wN0uMFmxxtok"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%%sql\n",
+        "-- Multi-statement transaction"
+      ],
+      "metadata": {
+        "id": "3sqFlRiAx5Ji"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Parts 17 to 20: Reflection and Future Improvements\n",
+        "\n",
+        "Write a brief reflection (300-500 words) on your database project. Address the following points:\n",
+        "\n",
+        "1. What were the main challenges you faced during this project?\n",
+        "2. How did you overcome these challenges?\n",
+        "3. What are the strengths of your database design?\n",
+        "4. If you were to continue developing this database, what improvements or additional features would you implement?\n",
+        "5. How has this project enhanced your understanding of database design and SQL?\n",
+        "\n",
+        "Your reflection should demonstrate critical thinking about your design choices and the database development process."
+      ],
+      "metadata": {
+        "id": "Qj_u2Qu1wed9"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Submission Guidelines\n",
+        "\n",
+        "WHen you are done, download this as an \"ipynb\" file. Now, submit this file, which should include all SQL statements, query results, and explanations. You will get full credit so long as you made a legitimate attempt to fully answer each question.\n"
+      ],
+      "metadata": {
+        "id": "W8TmJ7CLw7y1"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "9sEBxbAp0kxs"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
